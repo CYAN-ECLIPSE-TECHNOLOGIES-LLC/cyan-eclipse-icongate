@@ -17,6 +17,13 @@ Method notes (stated plainly, per the commission):
   against the eight icons whose human verdicts are on record (the five
   elected icons + the three rejected 2026-11-12 trio drafts) and are
   locked in tests/test_gate.py.
+- Renderer of record (owner ruling 2026-11-12): verdicts of record are
+  produced only on the calibration toolchain (the VM tools-venv renderer
+  stack). The Shard E renderer variance on the Monocle boundary fixture
+  (rim margin -0.1u here vs +0.77u on the calibration stack; the two
+  rim-margin tests) is a named accepted variance, not a verdict defect.
+  A verdict from any other renderer must be labelled with its renderer
+  and does not supersede a calibration-stack verdict.
 """
 from __future__ import annotations
 

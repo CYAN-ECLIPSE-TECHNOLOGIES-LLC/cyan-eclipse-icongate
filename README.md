@@ -61,6 +61,26 @@ guaranteed as adjacent text in the system's display contexts (products
 page, Bazaar cards), which satisfies the standard for that system. The
 strict rule stands unchanged for standalone product icons.
 
+## Renderer of record
+
+**Verdicts of record are pinned to the calibration renderer** (owner
+ruling 2026-11-12). Every `check` and `sweep` output cited in an
+election, a filing, or a gate report is produced **only** on the
+calibration toolchain — the VM tools-venv renderer stack (CairoSVG /
+Pillow / font stack) the gate's thresholds were calibrated on. Other
+renderers may measure boundary fixtures differently; that is expected
+and changes nothing by itself.
+
+Named accepted variance: this droplet's (Shard E) renderer measures the
+Monocle boundary fixture's rim margin at −0.1 units against +0.77 units
+on the calibration stack, and the two Monocle rim-margin tests in
+`tests/test_gate.py` fail here for exactly that reason (proven
+pre-existing on the pristine commissioning commit). Per the ruling this
+is a **named accepted variance, not a defect in any verdict**.
+
+A verdict produced on a non-calibration renderer must be labelled with
+its renderer, and it does not supersede a calibration-stack verdict.
+
 ## Use
 
 ```
