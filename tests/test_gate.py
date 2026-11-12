@@ -8,6 +8,7 @@ standard it exists to enforce — the test failing is the alarm.
 
 Run: python -m pytest tests/   (deps: cairosvg, pillow, numpy)
 """
+import json
 import os
 import subprocess
 import sys
@@ -144,3 +145,58 @@ def test_cli_bare_png_has_no_checkable_source(tmp_path):
     r = _run_cli("check", str(p), "--name", "WHATEVER")
     assert r.returncode == 1
     assert "no checkable source" in r.stdout
+
+
+# --- exemptions: owner-ruled sets classify EXEMPT in sweep, never in check ---
+
+from icongate.cli import load_exemptions, match_exemption  # noqa: E402
+
+
+def _monogram_svg(directory, name="widget.svg"):
+    """A monogram-only mark — the §5.5 shape: text is present but does not
+    spell the product name, so the strict wordmark stage FAILs it."""
+    p = os.path.join(directory, name)
+    with open(p, "w", encoding="utf-8") as f:
+        f.write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
+                '<circle cx="32" cy="32" r="30" fill="#0d1b2a"/>'
+                '<text x="32" y="40" font-size="20" fill="#ffffff" '
+                'text-anchor="middle">WM</text></svg>')
+    return p
+
+
+def test_default_exemptions_carry_the_section55_ruling():
+    entries = load_exemptions()
+    assert entries, "the shipped exemptions.json must carry the §5.5 ruling"
+    e = entries[0]
+    assert e["id"] == "section-5.5-product-logo-system"
+    assert "2026-11-12" in e["ruling"]
+    assert any("branding/logos" in p for p in e["paths"])
+
+
+def test_match_exemption_by_set_path(tmp_path):
+    entries = [{"id": "x", "paths": [str(tmp_path)],
+                "ruling": "Owner ruling 2026-11-12"}]
+    f = _monogram_svg(str(tmp_path))
+    assert match_exemption(f, entries) is entries[0]
+    assert match_exemption("/somewhere/else/icon.svg", entries) is None
+
+
+def test_cli_sweep_classifies_exempt_set(tmp_path):
+    f = _monogram_svg(str(tmp_path))
+    ex = tmp_path / "exemptions.json"
+    ex.write_text(json.dumps({"exemptions": [
+        {"id": "t", "paths": [str(tmp_path)], "verdict": "EXEMPT",
+         "ruling": "Owner ruling 2026-11-12 (test)"}]}))
+    r = _run_cli("sweep", str(tmp_path), "--exemptions", str(ex))
+    assert r.returncode == 0
+    assert "EXEMPT" in r.stdout and "1 EXEMPT" in r.stdout
+    assert "Owner ruling 2026-11-12" in r.stdout
+    j = _run_cli("sweep", str(tmp_path), "--exemptions", str(ex), "--json")
+    data = json.loads(j.stdout)
+    assert data["counts"]["EXEMPT"] == 1 and data["counts"]["FAIL"] == 0
+    assert data["rows"][0]["verdict"] == "EXEMPT"
+    assert "2026-11-12" in data["rows"][0]["exemption"]
+    # The same file under `check` is still gated on the strict rule —
+    # an exemption is a sweep classification, never a single-icon pass.
+    c = _run_cli("check", f, "--name", "WIDGET")
+    assert c.returncode == 1 and c.stdout.startswith("FAIL")

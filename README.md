@@ -43,6 +43,23 @@ eight, the test suite fails, which is the alarm working as designed.
 - **MARGINAL** — legible at 48, marginal at 32. Allowed only with the
   note recorded (the Monocle case).
 - **FAIL** — with named reasons. No icon with a FAIL is presented or shipped.
+- **EXEMPT** — sweep-only verdict class: the file belongs to a set an
+  owner ruling has taken out of the in-icon wordmark requirement. EXEMPT
+  is neither a PASS nor a FAIL, and the ruling is cited on the row.
+
+## Exemptions
+
+`src/icongate/exemptions.json` records owner rulings that exempt named
+sets from the wordmark requirement. On a `sweep`, any file under an
+exempt set's canonical path is classified **EXEMPT-BY-RULING** with the
+ruling cited, instead of FAIL. `check` ignores exemptions entirely — a
+single icon is always gated on the strict rule.
+
+Current entry: the **§5.5 product-logo system** (owner ruling
+2026-11-12) — its marks are monograms by design, and the product name is
+guaranteed as adjacent text in the system's display contexts (products
+page, Bazaar cards), which satisfies the standard for that system. The
+strict rule stands unchanged for standalone product icons.
 
 ## Use
 
