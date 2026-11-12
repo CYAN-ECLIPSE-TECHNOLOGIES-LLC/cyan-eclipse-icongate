@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cyan-eclipse-icongate"
+version = "0.1.0"
+description = "Cyan Eclipse Icongate — mechanical gate for the firm's product-icon wordmark standard (name inside the icon, seated with margin, legible at 48/32px)."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = ["cairosvg>=2.7", "pillow>=10", "numpy>=1.26"]
+
+[project.scripts]
+icongate = "icongate.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

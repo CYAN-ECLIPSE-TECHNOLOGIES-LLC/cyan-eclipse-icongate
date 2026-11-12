@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Cyan Eclipse Quill icon candidate A with wordmark">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0ff6f7"/><stop offset=".55" stop-color="#00d4ff"/><stop offset="1" stop-color="#7b2cbf"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="116" height="116" rx="26" fill="#0d1b2a" stroke="url(#g)" stroke-width="2.5"/>
+  <g transform="translate(23,0) scale(0.64)">
+    <path d="M64 15 C79 34 91 49 91 67 C91 87 79 101 64 113 C49 101 37 87 37 67 C37 49 49 34 64 15 Z" fill="url(#g)"/>
+    <circle cx="64" cy="61" r="5" fill="#0d1b2a"/>
+    <path d="M64 66 L64 101" stroke="#0d1b2a" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <text x="64" y="106" text-anchor="middle" font-family="'Segoe UI',Tahoma,Geneva,Verdana,sans-serif" font-size="20" font-weight="700" letter-spacing="2.5" fill="#fefefe">QUILL</text>
+</svg>

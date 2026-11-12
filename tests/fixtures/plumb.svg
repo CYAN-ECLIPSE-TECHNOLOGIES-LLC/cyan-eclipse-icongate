@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<title>Cyan Eclipse Plumb icon — wordmark variant candidate (PLUMB)</title>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="36%" r="85%">
+      <stop offset="0%" stop-color="#142c47"/>
+      <stop offset="58%" stop-color="#0d1b2a"/>
+      <stop offset="100%" stop-color="#080c14"/>
+    </radialGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0ff6f7"/>
+      <stop offset="55%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#7b2cbf"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="496" height="496" rx="110" fill="url(#bg)"/>
+  <rect x="8" y="8" width="496" height="496" rx="110" fill="none" stroke="#0ff6f7" stroke-opacity="0.22" stroke-width="3"/>
+  <!-- code brackets: the code under examination -->
+  <g fill="none" stroke="url(#g)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="202,114 112,256 202,398"/>
+    <polyline points="310,114 400,256 310,398"/>
+  </g>
+  <!-- plumb line -->
+  <rect x="252" y="94" width="8" height="108" fill="#0ff6f7"/>
+  <!-- bob: hangs true between the brackets -->
+  <path d="M219,202 C219,264 237,302 256,336 C275,302 293,264 293,202 Z" fill="url(#g)"/>
+  <ellipse cx="240" cy="244" rx="9" ry="20" fill="#ffffff" opacity="0.16"/>
+  <!-- wordmark candidate 2026-11-11: product name integrated per owner wordmark rule; elected artwork above unchanged -->
+  <text x="256" y="458" text-anchor="middle" font-family="'Segoe UI',Tahoma,Geneva,Verdana,sans-serif" font-size="72" font-weight="700" letter-spacing="2" fill="#fefefe">PLUMB</text>
+</svg>
